@@ -1,0 +1,7 @@
+data/
+
+processed data/
+
+runs/
+
+*.json
