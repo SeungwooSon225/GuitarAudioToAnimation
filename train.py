@@ -29,10 +29,10 @@ video_data = np.array(video_data['0'])
 X, y = [], []
 for i in range(time_delay, len(audio_data) - look_back):
     a = np.array(audio_data[i:i + look_back])
-    # v = np.array(video_data[i + look_back - time_delay]).reshape((1, -1))
+    v = np.array(video_data[i - time_delay]).reshape((1, -1))
 
     # tt = np.append(video_data[i], video_data[i])
-    v = np.array([np.append(np.append(video_data[i - time_delay],  video_data[i]), video_data[i+time_delay]).flatten()])
+    # v = np.array([np.append(np.append(video_data[i - time_delay],  video_data[i]), video_data[i+time_delay]).flatten()])
     # v = np.array([np.array(video_data[i - time_delay:i]).flatten()])
     X.append(a)
     y.append(v)
@@ -57,8 +57,8 @@ y = y.reshape(shapey[0], shapey[2])
 
 # plt.plot(X)
 # plt.show()
-plt.plot(y)
-plt.show()
+# plt.plot(y)
+# plt.show()
 
 print('Shapes:', X.shape, y.shape)
 print('X mean:', np.mean(X), 'X var:', np.var(X))
@@ -79,7 +79,7 @@ test_y = y[split2:]
 model = Sequential()
 model.add(LSTM(500, input_shape=(look_back, 26)))  # 25, input_shape=(look_back, 26)))
 model.add(Dropout(0.2)) # 0.25
-model.add(Dense(192))
+model.add(Dense(64))
 adam = optimizers.Adam(learning_rate=0.00008, beta_1=0.9, beta_2=0.98, epsilon=0.000000001)
 model.compile(loss='mean_squared_error', optimizer=adam)
 print(model.summary())
@@ -87,13 +87,34 @@ print(model.summary())
 
 # train LSTM with validation data
 # for i in tqdm(range(n_epoch)):
-print('Epoch', (i + 1), '/', n_epoch, ' - ', int(100 * (i + 1) / n_epoch))
-model.fit(train_X, train_y, epochs=250, batch_size=64,
+# print('Epoch', (i + 1), '/', n_epoch, ' - ', int(100 * (i + 1) / n_epoch))
+hist = model.fit(train_X, train_y, epochs=100, batch_size=64,
           verbose=1, shuffle=True, callbacks=[tbCallback], validation_data=(val_X, val_y))
 # model.reset_states()
 test_error = np.mean(np.square(test_y - model.predict(test_X)))
 # model.reset_states()
 print('Test Error: ', test_error)
+
+# print model result
+
+fig, loss_ax = plt.subplots()
+
+# acc_ax = loss_ax.twinx()
+
+loss_ax.plot(hist.history['loss'], 'y', label='train loss')
+loss_ax.plot(hist.history['val_loss'], 'r', label='val loss')
+
+# acc_ax.plot(hist.history['acc'], 'b', label='train acc')
+# acc_ax.plot(hist.history['val_acc'], 'g', label='val acc')
+
+loss_ax.set_xlabel('epoch')
+loss_ax.set_ylabel('loss')
+# acc_ax.set_ylabel('accuray')
+
+loss_ax.legend(loc='upper left')
+# acc_ax.legend(loc='lower left')
+
+plt.show()
 
 # Save the model
 model.save('my_model.h5')

@@ -237,7 +237,7 @@ def remove_trash_data():
 
                         zero_data_length = zero_data_end - zero_data_start
 
-                        if zero_data_length > 30:
+                        if zero_data_length > 60:
                             # print('start: ', zero_data_start, '|  end: ', zero_data_end)
                             trash_data_index = trash_data_index + [(zero_data_start, zero_data_end)]
 
@@ -271,70 +271,74 @@ def remove_trash_data():
 # pick_audio_data()
 # remove_trash_data()
 # interpolate_missing_data()
-concatenate_data()
+# concatenate_data()
 
 # show_data("./data")
 
-with open('processed data/concatenated_audio_data.json', 'r') as file:
+# with open('data/data_legacy/training1_video.json', 'r') as file:
+#     json_data = json.load(file)
+
+with open('data/training17_video1.json', 'r') as file:
     json_data = json.load(file)
 
 print(np.array(json_data['0']).shape)
 #
-# plt.plot(json_data['0'])
-# plt.show()
+plt.plot(json_data['0'])
+plt.show()
 
-with open('processed data/concatenated_video_data.json', 'r') as file:
-    json_data = json.load(file)
 
-print(np.array(json_data['0']).shape)
-
-# plt.plot(json_data['0'])
-# plt.show()
-
-json_data = json_data['0']
-
-for i in range(len(json_data)):
-    json_data[i] = [json_data[i][4*2]] + [json_data[i][4*2+1]] + \
-                   [json_data[i][8*2]] + [json_data[i][8*2+1]] + \
-                   [json_data[i][12*2]] + [json_data[i][12*2+1]] + \
-                   [json_data[i][16*2]] + [json_data[i][16*2+1]] + \
-                   [json_data[i][20*2]] + [json_data[i][20*2+1]] + \
-                   [json_data[i][3 * 2]] + [json_data[i][3 * 2 + 1]] + \
-                   [json_data[i][6 * 2]] + [json_data[i][6 * 2 + 1]] + \
-                   [json_data[i][10 * 2]] + [json_data[i][10 * 2 + 1]] + \
-                   [json_data[i][14 * 2]] + [json_data[i][14 * 2 + 1]] + \
-                   [json_data[i][18 * 2]] + [json_data[i][18 * 2 + 1]] + \
-                   [json_data[i][2 * 2]] + [json_data[i][2 * 2 + 1]] + \
-                   [json_data[i][5 * 2]] + [json_data[i][5 * 2 + 1]] + \
-                   [json_data[i][9 * 2]] + [json_data[i][9 * 2 + 1]] + \
-                   [json_data[i][13 * 2]] + [json_data[i][13 * 2 + 1]] + \
-                   [json_data[i][17 * 2]] + [json_data[i][17 * 2 + 1]] + \
-                   [json_data[i][0 * 2]] + [json_data[i][0 * 2 + 1]] + \
-                   [json_data[i][42 + 4 * 2]] + [json_data[i][42 + 4 * 2 + 1]] + \
-                   [json_data[i][42 + 8 * 2]] + [json_data[i][42 + 8 * 2 + 1]] + \
-                   [json_data[i][42 + 12 * 2]] + [json_data[i][42 + 12 * 2 + 1]] + \
-                   [json_data[i][42 + 16 * 2]] + [json_data[i][42 + 16 * 2 + 1]] + \
-                   [json_data[i][42 + 20 * 2]] + [json_data[i][42 + 20 * 2 + 1]] + \
-                   [json_data[i][42 + 3 * 2]] + [json_data[i][42 + 3 * 2 + 1]] + \
-                   [json_data[i][42 + 6 * 2]] + [json_data[i][42 + 6 * 2 + 1]] + \
-                   [json_data[i][42 + 10 * 2]] + [json_data[i][42 + 10 * 2 + 1]] + \
-                   [json_data[i][42 + 14 * 2]] + [json_data[i][42 + 14 * 2 + 1]] + \
-                   [json_data[i][42 + 18 * 2]] + [json_data[i][42 + 18 * 2 + 1]] + \
-                   [json_data[i][42 + 2 * 2]] + [json_data[i][42 + 2 * 2 + 1]] + \
-                   [json_data[i][42 + 5 * 2]] + [json_data[i][42 + 5 * 2 + 1]] + \
-                   [json_data[i][42 + 9 * 2]] + [json_data[i][42 + 9 * 2 + 1]] + \
-                   [json_data[i][42 + 13 * 2]] + [json_data[i][42 + 13 * 2 + 1]] + \
-                   [json_data[i][42 + 17 * 2]] + [json_data[i][42 + 17 * 2 + 1]] + \
-                   [json_data[i][42 + 0 * 2]] + [json_data[i][42 + 0 * 2 + 1]]
+# with open('processed data/concatenated_video_data.json', 'r') as file:
+#     json_data = json.load(file)
 #
-print(np.array(json_data).shape)
-
-json_data = {
-    "0": json_data
-}
-
-with open('processed data/concatenated_video_data.json', 'w', encoding='utf-8') as file:
-    json.dump(json_data, file)
+# print(np.array(json_data['0']).shape)
+#
+# # plt.plot(json_data['0'])
+# # plt.show()
+#
+# json_data = json_data['0']
+#
+# for i in range(len(json_data)):
+#     json_data[i] = [json_data[i][4*2]] + [json_data[i][4*2+1]] + \
+#                    [json_data[i][8*2]] + [json_data[i][8*2+1]] + \
+#                    [json_data[i][12*2]] + [json_data[i][12*2+1]] + \
+#                    [json_data[i][16*2]] + [json_data[i][16*2+1]] + \
+#                    [json_data[i][20*2]] + [json_data[i][20*2+1]] + \
+#                    [json_data[i][3 * 2]] + [json_data[i][3 * 2 + 1]] + \
+#                    [json_data[i][6 * 2]] + [json_data[i][6 * 2 + 1]] + \
+#                    [json_data[i][10 * 2]] + [json_data[i][10 * 2 + 1]] + \
+#                    [json_data[i][14 * 2]] + [json_data[i][14 * 2 + 1]] + \
+#                    [json_data[i][18 * 2]] + [json_data[i][18 * 2 + 1]] + \
+#                    [json_data[i][2 * 2]] + [json_data[i][2 * 2 + 1]] + \
+#                    [json_data[i][5 * 2]] + [json_data[i][5 * 2 + 1]] + \
+#                    [json_data[i][9 * 2]] + [json_data[i][9 * 2 + 1]] + \
+#                    [json_data[i][13 * 2]] + [json_data[i][13 * 2 + 1]] + \
+#                    [json_data[i][17 * 2]] + [json_data[i][17 * 2 + 1]] + \
+#                    [json_data[i][0 * 2]] + [json_data[i][0 * 2 + 1]] + \
+#                    [json_data[i][42 + 4 * 2]] + [json_data[i][42 + 4 * 2 + 1]] + \
+#                    [json_data[i][42 + 8 * 2]] + [json_data[i][42 + 8 * 2 + 1]] + \
+#                    [json_data[i][42 + 12 * 2]] + [json_data[i][42 + 12 * 2 + 1]] + \
+#                    [json_data[i][42 + 16 * 2]] + [json_data[i][42 + 16 * 2 + 1]] + \
+#                    [json_data[i][42 + 20 * 2]] + [json_data[i][42 + 20 * 2 + 1]] + \
+#                    [json_data[i][42 + 3 * 2]] + [json_data[i][42 + 3 * 2 + 1]] + \
+#                    [json_data[i][42 + 6 * 2]] + [json_data[i][42 + 6 * 2 + 1]] + \
+#                    [json_data[i][42 + 10 * 2]] + [json_data[i][42 + 10 * 2 + 1]] + \
+#                    [json_data[i][42 + 14 * 2]] + [json_data[i][42 + 14 * 2 + 1]] + \
+#                    [json_data[i][42 + 18 * 2]] + [json_data[i][42 + 18 * 2 + 1]] + \
+#                    [json_data[i][42 + 2 * 2]] + [json_data[i][42 + 2 * 2 + 1]] + \
+#                    [json_data[i][42 + 5 * 2]] + [json_data[i][42 + 5 * 2 + 1]] + \
+#                    [json_data[i][42 + 9 * 2]] + [json_data[i][42 + 9 * 2 + 1]] + \
+#                    [json_data[i][42 + 13 * 2]] + [json_data[i][42 + 13 * 2 + 1]] + \
+#                    [json_data[i][42 + 17 * 2]] + [json_data[i][42 + 17 * 2 + 1]] + \
+#                    [json_data[i][42 + 0 * 2]] + [json_data[i][42 + 0 * 2 + 1]]
+# #
+# print(np.array(json_data).shape)
+#
+# json_data = {
+#     "0": json_data
+# }
+#
+# with open('processed data/concatenated_video_data.json', 'w', encoding='utf-8') as file:
+#     json.dump(json_data, file)
 
 
 
